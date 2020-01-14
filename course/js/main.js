@@ -5,7 +5,7 @@ let list = [
 ]
 function getTotal(list) {
     let total = 0;
-    
+
     for (const key in list) {
         total += list[key].value * list[key].amount;
          // O comando multiplica a quantidade pelo valor, e o total é a soma de tudo.
@@ -15,17 +15,15 @@ function getTotal(list) {
 function setList(list) {
     let table = '<thead><tr><td>Description</td><td>Amound</td><td>Value</td><td>Action</td></tr></thead><tbody><tr>';
     for (const key in list) {
-      table +=   '<tr><td>'+formatDesc(list[key].desc)+'</td><td>'+formatAmount(list[key].amount) +'</td><td>'+formatNumber(list[key].value)+'</td><td><button class="btn btn-default" onclick="deleteForm('+key+');">Edit</button> | <button class="btn btn-default" onclick="deleteForm('+key+');">Delete</td></tr>';
+      table +=   '<tr><td>'+formatDesc(list[key].desc)+'</td><td>'+formatAmount(list[key].amount) +'</td><td>'+formatNumber(list[key].value)+'</td><td><button class="btn btn-default" onclick="('+key+');">Edit</button> | <button class="btn btn-default" onclick="deleteForm('+key+');">Delete</td></tr>';
     }
     table += '</tbody>';
     document.getElementById("listTable").innerHTML = table;
-    
+
 }
 function formatAmount(value) {
     return parseInt(amount);
 }
-
-
 function formatDesc(desc) {
     let str = desc.toLowerCase();
     str = str.charAt(0).toUpperCase() + str.slice(1);
@@ -33,7 +31,7 @@ function formatDesc(desc) {
 }
 function formatNumber(value) {
     let num = parseFloat(value).toFixed(2)+ '';
-    num = num.replace('.' , ','); 
+    num = num.replace('.' , ',');
     num = '$ ' + num;
     return num;
 }
@@ -61,13 +59,13 @@ function resetForm() {
     document.getElementById("btnAdd").style.display = 'inline-block';
     document.getElementById('inputIDUpdate').innerHTML =  "";
 }
-function updateData() {    
+function updateData() {
     let id = document.getElementById('updateData');
     let desc = document.getElementById("desc").value;
     let amount = document.getElementById("amount").value;
     let value =  document.getElementById("value").value;
     list[id] = {'desc': desc, 'amount':amount , 'value':value }
-    resetForm() 
+    resetForm()
     setList(list);
 }
 function deleteForm(id){
@@ -93,7 +91,7 @@ function validation() {
         errors += '<p>Fill out description</p>';
     }
     if (amount === '') {
-        
+
     }
 }
 setList(list);
