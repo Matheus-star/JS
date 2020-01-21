@@ -71,30 +71,20 @@ function updateData() { // Salvar alteração de dados
     resetForm()
     setList(list);
 }
-
-
-
-
-
-
-
-
-
-
-//function deleteForm(id){
-   // if (confirm("Delete this item?")) {
-     //   if (id === list.length - 1) {
-       //     list.pop();
-        //}else if (id === 0){
-          //  list.shift();
-        //}else{
-          //  let arrAux = list.slice(0,id);
-            //let arrAuxEnd = list.slice(id + 1);
-            //list = arrAux.concat(arrAuxEnd);
-        //}
-//        setList(list);
-   // }
-//}
+function deleteForm(id){ // Deletando dados
+  if (confirm("Delete this item?")) {
+    if (id === list.length - 1) {
+          list.pop();
+      }else if (id === 0){
+        list.shift();
+      }else{
+        let arrAux = list.slice(0,id);
+          let arrAuxEnd = list.slice(id + 1);
+          list = arrAux.concat(arrAuxEnd);
+      }
+      setList(list);
+  }
+}
 //function validation() {
   //  let desc = document.getElementById("desc").value;
    // let amount = document.getElementById("amount").value;
