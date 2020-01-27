@@ -15,15 +15,15 @@ function getTotal(list) {
 function setList(list) {
     let table = '<thead><tr><td>Description</td><td>Amound</td><td>Value</td><td>Action</td></tr></thead><tbody><tr>';
     for (const key in list) {
-      table +=   '<tr><td>'+formatDesc(list[key].desc)+'</td><td>'+list[key].amount +'</td><td>'+formatValue(list[key].value)+'</td><td><button class="btn btn-default" onclick="setUpdate('+key+');">Edit</button> | <button class="btn btn-default" onclick="deleteForm('+key+');">Delete</td></tr>';
+      table +=   '<tr><td>'+formatDesc(list[key].desc)+'</td><td>'+formatAmount(list[key].amount) +'</td><td>'+formatValue(list[key].value)+'</td><td><button class="btn btn-default" onclick="setUpdate('+key+');">Edit</button> | <button class="btn btn-default" onclick="deleteForm('+key+');">Delete</td></tr>';
     }
     table += '</tbody>';
     document.getElementById("listTable").innerHTML = table;
 }
 //Formantando dados
-//function formatAmount(value) {
-  //  return parseInt(amount);
-//}
+function formatAmount(amount) {
+    return parseInt(amount);
+}
 function formatDesc(desc) {
     let str = desc.toLowerCase();
     str = str.charAt(0).toUpperCase() + str.slice(1);
@@ -36,6 +36,9 @@ function formatValue(value) {
     return num;
 }
 function addData() {//Adicionando dados
+    if (!validation()){
+        return;
+    }
     let desc = document.getElementById("desc").value;
     let amount = document.getElementById("amount").value;
     let value = document.getElementById("value").value;
@@ -62,8 +65,10 @@ function resetForm() { //Deletando Dados
     document.getElementById('inputIDUpdate').innerHTML =  "";
 }
 function updateData() { // Salvar alteração de dados
+    if (!validation()){
+        return;
+    }
     let id = document.getElementById('idUpdate').value;
-
     let desc = document.getElementById("desc").value;
     let amount = document.getElementById("amount").value;
     let value =  document.getElementById("value").value;
@@ -85,17 +90,32 @@ function deleteForm(id){ // Deletando dados
       setList(list);
   }
 }
-//function validation() {
-  //  let desc = document.getElementById("desc").value;
-   // let amount = document.getElementById("amount").value;
-//    let value = document.getElementById("value").value;
-  //  var errors = "";
-    //if (desc === "") {
-      //  errors += '<p>Fill out description</p>';
-    //}
-    //if (amount === '') {
+function validation() {
+    let desc = document.getElementById("desc").value;
+    let amount = document.getElementById("amount").value;
+    let value = document.getElementById("value").value;
+    var errors = "";
+    if (desc === "") {
+        errors += '<p>Fill out description</p>';
+    }
+    if (amount === '') {
+        errors += '<p>Fill out a quantity</p>';
+    }else if (amount != parseInt(amount)) {
+        errors += '<p>Fill out a valid amount</p>';
+    }
+    if (value === '') {
+        errors += '<p>Fill out a value</p>';
+    }else if (value != parseFloat(value)) {
+        errors += '<p>Fill out a valid amount</p>';
+    }
 
-    //}
-//}
+    if (errors != "") {
+        document.getElementById("errors").innerHTML = "<h3>ERROR:</H3>" + errors;
+        return 0;
+    }else{
+        return 1;
+    }
+
+}
 setList(list);
 console.log(getTotal(list,))
