@@ -10,7 +10,7 @@ function getTotal(list) {
         total += list[key].value * list[key].amount;
          // O comando multiplica a quantidade pelo valor, e o total é a soma de tudo.
     }
-    return total;
+    document.getElementById("totalValue").innerHTML = formatValue(total);
 }
 function setList(list) {
     let table = '<thead><tr><td>Description</td><td>Amound</td><td>Value</td><td>Action</td></tr></thead><tbody><tr>';
@@ -19,6 +19,8 @@ function setList(list) {
     }
     table += '</tbody>';
     document.getElementById("listTable").innerHTML = table;
+    getTotal(list);
+    saveListStorage(list);
 }
 //Formantando dados
 function formatAmount(amount) {
@@ -63,6 +65,7 @@ function resetForm() { //Deletando Dados
     document.getElementById("btnUpdate").style.display = 'none';
     document.getElementById("btnAdd").style.display = 'inline-block';
     document.getElementById('inputIDUpdate').innerHTML =  "";
+    document.getElementById("errors").style.display = "none"
 }
 function updateData() { // Salvar alteração de dados
     if (!validation()){
@@ -94,6 +97,7 @@ function validation() {
     let desc = document.getElementById("desc").value;
     let amount = document.getElementById("amount").value;
     let value = document.getElementById("value").value;
+    document.getElementById("errors").style.display = "none"
     var errors = "";
     if (desc === "") {
         errors += '<p>Fill out description</p>';
@@ -109,13 +113,38 @@ function validation() {
         errors += '<p>Fill out a valid amount</p>';
     }
 
-    if (errors != "") {
+    if (errors != "") { // Mostrando erros pendentes
+        document.getElementById("errors").style.display = "block";
+
+        document.getElementById("errors").style.backgroundColor = "red";
+        document.getElementById("errors").style.color = "white";
+        document.getElementById("errors").style.padding = "10px 10px 10px 20px";
+        document.getElementById("errors").style.borderRadius = "20px";
+        document.getElementById("errors").style.margin = "10px";
         document.getElementById("errors").innerHTML = "<h3>ERROR:</H3>" + errors;
         return 0;
     }else{
         return 1;
     }
-
 }
-setList(list);
-console.log(getTotal(list,))
+function deleteList() { // Deletando toda a lista
+    if (confirm("Delete this list?")) {
+        list = [];
+        setList(list);
+    }
+}
+
+function saveListStorage(list) { // Passa os dados para string para mandar, para o local Storage
+    let jsonStr = JSON.stringify(list);
+    localStorage.setItem("list", jsonStr);  
+}
+
+function initListStorage() { // Função de inicialização 
+    let testList = localStorage.getItem("list"); // verifica se a lista já está salva no local storage.
+    if(testList){
+        list = JSON.parse(testList); // Ele pega os dados salvos no storege, e acrescenta de volta na lista.
+        // O parse serve para transformar de string para array novamente.
+    }
+    setList(list);
+}
+initListStorage()
