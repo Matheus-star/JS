@@ -7,6 +7,34 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <p>JS</p>
+    <script>
+        // Conceito de Classes
+      function Person()  {
+          this.nome; //Atributos
+          this.idade;
+          this.altura;
+
+          this.sayHello = function(nome) { //Método
+              console.log('Hello' + nome);
+              // Todas a vezes que um obj for criado, ele será atribuido ao obj automáticamente.
+          }
+      }
+      var matheus = new Person(); //Instância matheus gera um obj com os atributos da Classe
+      matheus.nome = 'Matheus';
+      matheus.idade = 19;
+      matheus.altura = 2.00;
+      matheus.sayHello(matheus.nome);
+
+      var jair = new Person();
+      jair.nome = 'Jair';
+      jair.idade = 19;
+      jair.altura = 2.00;
+      jair.sayHello(jair.nome);
+      console.log(jair);
+      console.log(matheus);
+      
+      
+    </script>
 </body>
 </html>
