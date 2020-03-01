@@ -11,29 +11,37 @@
     <script>
         // Conceito de Classes
       function Person()  {
-          this.nome; //Atributos
-          this.idade;
-          this.altura;
+          this. nome; //Atributos
+          this. age;
+          this. altura;
 
           this.sayHello = function(nome) { //Método
-              console.log('Hello' + nome);
+              console.log('sayHello' , nome);
               // Todas a vezes que um obj for criado, ele será atribuido ao obj automáticamente.
           }
-      }
-      var matheus = new Person(); //Instância matheus gera um obj com os atributos da Classe
-      matheus.nome = 'Matheus';
-      matheus.idade = 19;
-      matheus.altura = 2.00;
-      matheus.sayHello(matheus.nome);
+          this.hello = function hello(nome) {
+            console.log('hello' , nome );
+            }
+          this.getName = function getName(){
+            return this.nome;
+          }
+          this.setName = function setName(_nome) {
+            this.nome = _nome
+          }
+          this.getAge = function (_age) {
+            this.age = _age
+          }
+          this.setAge = function setAge() {
+            
+          }
 
-      var jair = new Person();
-      jair.nome = 'Jair';
-      jair.idade = 19;
-      jair.altura = 2.00;
-      jair.sayHello(jair.nome);
-      console.log(jair);
-      console.log(matheus);
+      }
       
+      var matheus = new Person(); 
+      
+      matheus.setName("Matheus");
+      matheus.sayHello(matheus.getName());
+      matheus.hello(matheus.getName())
       
     </script>
 </body>
